@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Program8
+{
+    internal class Program
+    {
+        static void Main()
+        {
+            // Ввод размеров острова
+            Console.Write("Ширина острова (width): ");
+            int width = int.Parse(Console.ReadLine());
+
+            Console.Write("Высота острова (height): ");
+            int height = int.Parse(Console.ReadLine());
+
+            // Золото на одной клетке периметра (можно заменить на массив/ввод)
+            Console.Write("Золото на одной клетке периметра: ");
+            int goldPerCell = int.Parse(Console.ReadLine());
+
+            if (width <= 0 || height <= 0)
+            {
+                Console.WriteLine("Размеры должны быть положительными.");
+                return;
+            }
+
+            long totalGold;
+
+            // Периметр для прямоугольника: считаем клетки по границе
+            if (width == 1 && height == 1)
+            {
+                // Остров 1×1: это и есть весь периметр
+                totalGold = goldPerCell;
+            }
+            else if (width == 1)
+            {
+                // Полоска 1×height: все клетки — периметр
+                totalGold = (long)height * goldPerCell;
+            }
+            else if (height == 1)
+            {
+                // Полоска width×1
+                totalGold = (long)width * goldPerCell;
+            }
+            else
+            {
+                // Прямоугольник: периметр = 2*(width + height) - 4 (углы не дублируем)
+                int perimeterCells = 2 * (width + height) - 4;
+                totalGold = (long)perimeterCells * goldPerCell;
+            }
+
+            Console.WriteLine($"Сумма золота по периметру: {totalGold}");
+        }
+    }
+}
